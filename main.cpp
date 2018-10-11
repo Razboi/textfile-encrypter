@@ -7,6 +7,9 @@
 void encrypt(const char *  filename) {
 	char c;
 	char *password = new char[101];
+	if (!password) {
+		return 1;
+	}
 	std::ifstream file;
 	std::ofstream enc_file;
 	file.open(filename);
@@ -30,6 +33,9 @@ void encrypt(const char *  filename) {
 void decrypt(const char * filename) {
 	char c;
 	char *password = new char[101];
+	if (!password) {
+		return 1;
+	}
 	std::ifstream file;
 	std::ofstream dec_file;
 	file.open(filename);
