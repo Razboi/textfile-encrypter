@@ -1,3 +1,4 @@
+#include <cstring>
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -5,13 +6,19 @@
 
 void encrypt(const char *  filename) {
 	char c;
+	char *password = new char[101];
 	std::ifstream file;
 	std::ofstream enc_file;
 	file.open(filename);
 	enc_file.open("enc_tmp.txt");
-	for (int i = 0; file.get(c); i++) {
-		int encrypted_char = (int)c + 1;
-		//std::cout << c << "-->" << (char)encrypted_char << "\n";
+	std::cout << "Password:\n";
+	std::cin >> password;
+	for (int i = 0, j = 0; file.get(c); i++, j++) {
+		if (j > (int)strlen(password) - 1) {
+			j = 0;
+		}
+		int encrypted_char = c + password[j];
+		//std::cout << c << "-->" << encrypted_char << "\n";
 		enc_file << (char)encrypted_char;
 	}
 	file.close();
@@ -22,13 +29,19 @@ void encrypt(const char *  filename) {
 
 void decrypt(const char * filename) {
 	char c;
+	char *password = new char[101];
 	std::ifstream file;
 	std::ofstream dec_file;
 	file.open(filename);
 	dec_file.open("dec_tmp.txt");
-	for (int i = 0; file.get(c); i++) {
-		int decrypted_char = (int)c - 1;
-		//std::cout << c << "-->" << (char)decrypted_char << "\n";
+	std::cout << "Password:\n";
+	std::cin >> password;
+	for (int i = 0, j = 0; file.get(c); i++, j++) {
+		if (j > (int)strlen(password) - 1) {
+			j = 0;
+		}
+		int decrypted_char = c - password[j];
+		//std::cout << c << "-->" << decrypted_char << "\n";
 		dec_file << (char)decrypted_char;
 	}
 	file.close();
